@@ -1,62 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.selenium.databasetesting.test.DatabaseTesting" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-07-22T08:54:02" hostname="arjun-HP-Laptop-15-bs0xx" time="17.601">
+<testsuite name="com.selenium.databasetesting.test.DatabaseTesting" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-07-23T12:46:28" hostname="arjun-HP-Laptop-15-bs0xx" time="8.989">
   <properties/>
-  <testcase name="delete_row_from_employeeTable" classname="com.selenium.databasetesting.test.DatabaseTesting" time="0.067"/>
-  <testcase name="getTableData" classname="com.selenium.databasetesting.test.DatabaseTesting" time="0.083"/>
-  <testcase name="insert_RecordTest" classname="com.selenium.databasetesting.test.DatabaseTesting" time="0.498"/>
-  <testcase name="login_to_application_using_DB_data" classname="com.selenium.databasetesting.test.DatabaseTesting" time="16.852"/>
-  <testcase name="update_record_whereProvidedCondition" classname="com.selenium.databasetesting.test.DatabaseTesting" time="0.094"/>
-  <system-out><![CDATA[---------------------delete_row_from_employeeTable--------------------
-Server is connected
----------------------getTableData--------------------
+  <testcase name="insert_record_test" classname="com.selenium.databasetesting.test.DatabaseTesting" time="8.989"/>
+  <system-out><![CDATA[Server is connected
 Server is connected
 ************************ Table Data *******************
-id     username                password       salary   
+id     username                password       city   
 ---------------------------------------------------------
-1  diliprathod32@gmail.com     Login@123     40000
+1  diliprathod32@gmail.com     Login@123     Nashik
 ---------------------------------------------------------
-2  diliprathod@gmail.com     Login@123     30000
+3  diliprathod@gmail.com     abc@123     Pune
 ---------------------------------------------------------
-3  dilip@gmail.com     Abc@123     550000
+6  sandip@gmail.com     abc@123     Mumbai
 ---------------------------------------------------------
-5  ganesh@gmail.com     pass@123     35000
+9  dilip@gmail.com     abc@123     Mumbai
 ---------------------------------------------------------
-6  ganesh@gmail.com     pass@123     35000
----------------------------------------------------------
----------------------insert_RecordTest--------------------
-Server is connected
----------------------getTableData--------------------
-Server is connected
-************************ Table Data *******************
-id     username                password       salary   
----------------------------------------------------------
-1  diliprathod32@gmail.com     Login@123     40000
----------------------------------------------------------
-2  diliprathod@gmail.com     Login@123     30000
----------------------------------------------------------
-3  dilip@gmail.com     Abc@123     550000
----------------------------------------------------------
-5  ganesh@gmail.com     pass@123     35000
----------------------------------------------------------
-6  ganesh@gmail.com     pass@123     35000
----------------------------------------------------------
-7  ganesh@gmail.com     pass@123     35000
----------------------------------------------------------
-8  ganesh@gmail.com     pass@123     35000
----------------------------------------------------------
-----------------------login_to_application_using_DB_data-------------------
-Server is connected
----------------------update_record_whereProvidedCondition--------------------
-Server is connected
 ]]></system-out>
-  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-Starting ChromeDriver 92.0.4515.43 (8c61b7e2989f2990d42f859cac71319137787cce-refs/branch-heads/4515@{#306}) on port 18114
-Only local connections are allowed.
-Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
-ChromeDriver was started successfully.
-Jul 22, 2021 2:24:04 PM org.openqa.selenium.remote.ProtocolHandshake createSession
-INFO: Detected dialect: W3C
-]]></system-err>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>

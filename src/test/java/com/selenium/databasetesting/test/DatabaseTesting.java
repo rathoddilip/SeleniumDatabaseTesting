@@ -2,6 +2,7 @@ package com.selenium.databasetesting.test;
 
 import com.selenium.databasetesting.base.BaseClass;
 import com.selenium.databasetesting.page.Login;
+import com.selenium.databasetesting.utility.CustomException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,15 +14,16 @@ public class DatabaseTesting extends BaseClass {
     public Connection connection;
     public static int rowCount;
     public int noOfRowsAffected;
+    public ResultSet resultSet;
 
     @Test(priority = 1)
-    public void getTableData() throws SQLException {
+    public void retrieve_table_data() throws SQLException {
 
         connection = this.getConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from employee");
+        resultSet = statement.executeQuery("select * from user");
         System.out.println("************************ Table Data *******************");
-        System.out.println("id " + "    username    " + "            password  " + "     salary   ");
+        System.out.println("id " + "    username    " + "            password  " + "     city   ");
         System.out.println("---------------------------------------------------------");
         while (resultSet.next()) {
             int id = resultSet.getInt(1);
@@ -35,20 +37,24 @@ public class DatabaseTesting extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void insert_RecordTest() throws SQLException {
-
+    public void insert_record_test() throws SQLException, CustomException {
         connection = this.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into employee (username,password,salary)values(?,?,?)");
 
-        preparedStatement.setString(1, "arjun@gmail.com");
-        preparedStatement.setString(2, "pass@123");
-        preparedStatement.setString(3, "45000");
-        preparedStatement.executeUpdate();
+        PreparedStatement preparedStatement = connection.prepareStatement("insert ignore into user (username,password,city)values(?,?,?)");
+
+        preparedStatement.setString(1, "diliprathod32@gmail.com");
+        preparedStatement.setString(2, "Login@123");
+        preparedStatement.setString(3, "Jalgaon");
 
         noOfRowsAffected = preparedStatement.executeUpdate();
-        //assertion the query is executed or not
-        Assert.assertEquals(noOfRowsAffected, 1);
-        getTableData();
+        if (noOfRowsAffected == 0) {
+            throw new CustomException(CustomException.ExceptionType.USERNAME_ALLREADY_EXIST, "Username is already exist please enter other username");
+        } else {
+            //assertion the query is executed or not
+            Assert.assertEquals(noOfRowsAffected, 1);
+        }
+
+        retrieve_table_data();
     }
 
     @Test(priority = 3)
@@ -56,13 +62,14 @@ public class DatabaseTesting extends BaseClass {
 
         connection = this.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("update employee set salary=? where id=?");
-            preparedStatement.setString(1, "550000");
-            preparedStatement.setInt(2, 3);
+            PreparedStatement preparedStatement = connection.prepareStatement("update user set city=? where id=?");
+            preparedStatement.setString(1, "Surat");
+            preparedStatement.setInt(2, 6);
 
             noOfRowsAffected = preparedStatement.executeUpdate();
             //assertion the query is executed or not
-            Assert.assertEquals(noOfRowsAffected, 1);
+            //Assert.assertEquals(noOfRowsAffected, 1);
+            retrieve_table_data();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,9 +79,10 @@ public class DatabaseTesting extends BaseClass {
     public void delete_row_from_employeeTable() throws SQLException {
 
         connection = this.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("delete from employee where id=?");
-        preparedStatement.setInt(1, 5);
-        preparedStatement.executeUpdate();
+        PreparedStatement preparedStatement = connection.prepareStatement("delete from user where id=?");
+        preparedStatement.setInt(1, 2);
+        noOfRowsAffected = preparedStatement.executeUpdate();
+        retrieve_table_data();
     }
 
     @Test(priority = 5)
@@ -86,7 +94,7 @@ public class DatabaseTesting extends BaseClass {
         String password;
         connection = this.getConnection();
         Statement statement = connection.createStatement();
-        resultSet = statement.executeQuery("select * from employee LIMIT 1");
+        resultSet = statement.executeQuery("select * from user LIMIT 1");
         while (resultSet.next()) {
             Login login = new Login(driver);
             login.signInUser();
@@ -102,6 +110,15 @@ public class DatabaseTesting extends BaseClass {
             Assert.assertEquals(gmailId, expectedEmail);
             driver.close();
         }
+    }
+
+    @Test(priority = 6)
+    public void delete_entire_table_data() throws SQLException {
+
+        connection = this.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("delete from employee");
+        noOfRowsAffected = preparedStatement.executeUpdate();
+        retrieve_table_data();
     }
 
 }
